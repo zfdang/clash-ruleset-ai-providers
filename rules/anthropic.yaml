@@ -1,0 +1,18 @@
+# NAME: Anthropic
+# AUTHOR: zfdang
+# REPO: https://github.com/zfdang/clash-ruleset-ai-providers
+# UPDATED: 2026-10-15 09:15:28
+# DESCRIPTION: Rules for Anthropic & Claude (Web, API, CDN)
+# DOMAIN: 2
+# DOMAIN-SUFFIX: 4
+# DOMAIN-KEYWORD: 2
+# TOTAL: 8
+payload:
+  - DOMAIN,anthropic.imgix.net
+  - DOMAIN,servd-anthropic-website.b-cdn.net
+  - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,claude.ai
+  - DOMAIN-SUFFIX,claude.com
+  - DOMAIN-SUFFIX,claudeusercontent.com
+  - DOMAIN-KEYWORD,anthropic
+  - DOMAIN-KEYWORD,claude
