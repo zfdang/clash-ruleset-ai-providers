@@ -22,4 +22,4 @@ jobs:
 
     - name: Verify git status is clean
       run: |
-        git diff --exit-code || (echo "Rulesets are out of date! Please run 'python3 scripts/build.py' and commit changes." && exit 1)
+        git diff -I "^# UPDATED:" --exit-code || (echo "Rulesets are out of date! Please run 'python3 scripts/build.py' and commit changes." && exit 1)

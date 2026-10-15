@@ -143,9 +143,45 @@ def count_stats(rules):
     return stats
 
 
-def generate_yaml_content(name, description, rules, updated_time):
+def get_existing_timestamp(file_path):
+    """Extract existing UPDATED timestamp from file if it exists."""
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.startswith("# UPDATED:"):
+                        return line.split("# UPDATED:", 1)[1].strip()
+        except Exception:
+            pass
+    return None
+
+
+def get_existing_payload(file_path):
+    """Extract payload lines from existing file."""
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                if "payload:" in content:
+                    return content.split("payload:", 1)[1].strip()
+        except Exception:
+            pass
+    return None
+
+
+def generate_yaml_content(name, description, rules, current_time, target_path=None):
     sorted_rules = parse_and_sort_rules(rules)
     stats = count_stats(sorted_rules)
+
+    new_payload = "\n".join([f"  - {r}" for r in sorted_rules]).strip()
+    updated_time = current_time
+
+    # If file exists and payload rules haven't changed, retain original timestamp
+    if target_path and os.path.exists(target_path):
+        old_payload = get_existing_payload(target_path)
+        old_timestamp = get_existing_timestamp(target_path)
+        if old_payload == new_payload and old_timestamp:
+            updated_time = old_timestamp
 
     lines = [
         f"# NAME: {name}",
@@ -178,10 +214,10 @@ def main():
     for name, data in RULES_DATA.items():
         rules = data["rules"]
         all_rules.extend(rules)
-        content = generate_yaml_content(name, data["description"], rules, updated_time)
+        target_path = os.path.join(rules_dir, data["filename"])
+        content = generate_yaml_content(name, data["description"], rules, updated_time, target_path=target_path)
 
         # Output to rules/<filename>
-        target_path = os.path.join(rules_dir, data["filename"])
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(content)
         generated_files.append(target_path)
@@ -192,13 +228,14 @@ def main():
         generated_files.append(root_target)
 
     # 2. Generate aggregated ai-providers file
+    agg_rules_path = os.path.join(rules_dir, "ai-providers.yaml")
     agg_content = generate_yaml_content(
         "AIProviders",
         "Consolidated ruleset for OpenAI, Anthropic, and Antigravity (Gemini/Google AI)",
         all_rules,
         updated_time,
+        target_path=agg_rules_path,
     )
-    agg_rules_path = os.path.join(rules_dir, "ai-providers.yaml")
     with open(agg_rules_path, "w", encoding="utf-8") as f:
         f.write(agg_content)
     generated_files.append(agg_rules_path)
