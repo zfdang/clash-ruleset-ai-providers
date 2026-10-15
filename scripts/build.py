@@ -19,20 +19,24 @@ AUTHOR = "zfdang"
 RULES_DATA = {
     "OpenAI": {
         "filename": "openai.yaml",
-        "description": "Rules for OpenAI (ChatGPT, API, Codex, Voice / LiveKit, CDN, ArkoseLabs)",
+        "description": "Rules for OpenAI (ChatGPT, API, Sora, Voice LiveKit/Egress IPs, CDN, ArkoseLabs)",
         "rules": [
             # Core domains & Web
             "DOMAIN-SUFFIX,openai.com",
             "DOMAIN-SUFFIX,chatgpt.com",
+            "DOMAIN-SUFFIX,chat.com",
+            "DOMAIN-SUFFIX,sora.com",
             "DOMAIN-SUFFIX,oaistatic.com",
             "DOMAIN-SUFFIX,oaiusercontent.com",
-            "DOMAIN-SUFFIX,ai.com",
-            # Voice / Realtime streaming (LiveKit Cloud)
+            "DOMAIN-SUFFIX,oaistatsig.com",
+            "DOMAIN-SUFFIX,crixet.com",
+            "DOMAIN-SUFFIX,chatgpt.site",
+            # Voice / Realtime streaming (OpenAI specific tenant)
             "DOMAIN-SUFFIX,chatgpt.livekit.cloud",
-            "DOMAIN-SUFFIX,host.livekit.cloud",
-            "DOMAIN-SUFFIX,turn.livekit.cloud",
             # OpenAI Specific CDN & Dedicated Endpoints
+            "DOMAIN,cdn.openaimerge.com",
             "DOMAIN,chat.openai.com.cdn.cloudflare.net",
+            "DOMAIN,openaiassets.blob.core.windows.net",
             "DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net",
             "DOMAIN,openaicomproductionae4b.blob.core.windows.net",
             "DOMAIN,production-openaicom-storage.azureedge.net",
@@ -40,58 +44,93 @@ RULES_DATA = {
             "DOMAIN,openaicom.imgix.net",
             "DOMAIN,static.cloudflareinsights.com",
             "DOMAIN,browser-intake-datadoghq.com",
+            "DOMAIN,openai.qualtrics.com",
+            "DOMAIN,o33249.ingest.sentry.io",
             # Human Verification (Specific Arkose endpoints for OpenAI, avoid broad arkoselabs.com)
             "DOMAIN,openai-api.arkoselabs.com",
             "DOMAIN,client-api.arkoselabs.com",
-            # Keywords
-            "DOMAIN-KEYWORD,openai",
-            "DOMAIN-KEYWORD,chatgpt",
+            # ChatGPT Voice Official Egress IPs (https://openai.com/chatgpt-voice.json)
+            "IP-CIDR,4.151.200.38/32,no-resolve",
+            "IP-CIDR,4.155.146.196/32,no-resolve",
+            "IP-CIDR,4.197.172.116/32,no-resolve",
+            "IP-CIDR,4.217.235.100/32,no-resolve",
+            "IP-CIDR,4.245.198.13/32,no-resolve",
+            "IP-CIDR,13.71.25.29/32,no-resolve",
+            "IP-CIDR,20.74.221.21/32,no-resolve",
+            "IP-CIDR,20.162.96.163/32,no-resolve",
+            "IP-CIDR,20.168.48.117/32,no-resolve",
+            "IP-CIDR,20.184.36.134/32,no-resolve",
+            "IP-CIDR,20.203.144.245/32,no-resolve",
+            "IP-CIDR,40.118.236.137/32,no-resolve",
+            "IP-CIDR,51.4.112.173/32,no-resolve",
+            "IP-CIDR,52.143.181.161/32,no-resolve",
+            "IP-CIDR,68.155.152.41/32,no-resolve",
+            "IP-CIDR,72.146.20.246/32,no-resolve",
+            "IP-CIDR,74.248.148.7/32,no-resolve",
+            "IP-CIDR,102.37.57.54/32,no-resolve",
+            "IP-CIDR,135.220.40.201/32,no-resolve",
+            "IP-CIDR,172.203.39.49/32,no-resolve",
+            "IP-CIDR,172.207.173.200/32,no-resolve",
+            "IP-CIDR,172.214.226.198/32,no-resolve",
+            "IP-CIDR,191.233.251.27/32,no-resolve",
         ],
     },
     "Anthropic": {
         "filename": "anthropic.yaml",
-        "description": "Rules for Anthropic & Claude (Web, API, CDN)",
+        "description": "Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Official IPs)",
         "rules": [
             # Core domains & Web
             "DOMAIN-SUFFIX,anthropic.com",
             "DOMAIN-SUFFIX,claude.ai",
             "DOMAIN-SUFFIX,claude.com",
+            "DOMAIN-SUFFIX,clau.de",
+            "DOMAIN-SUFFIX,claude.dev",
             "DOMAIN-SUFFIX,claudeusercontent.com",
+            "DOMAIN-SUFFIX,claudemcpclient.com",
+            "DOMAIN-SUFFIX,claudemcpcontent.com",
             # CDN & Endpoints
             "DOMAIN,servd-anthropic-website.b-cdn.net",
             "DOMAIN,anthropic.imgix.net",
-            # Keywords
-            "DOMAIN-KEYWORD,anthropic",
-            "DOMAIN-KEYWORD,claude",
+            # Official IP Range (https://docs.anthropic.com/en/api/ip-addresses)
+            "IP-CIDR,160.79.104.0/21,no-resolve",
         ],
     },
     "Antigravity": {
         "filename": "antigravity.yaml",
         "description": "Rules for Google Antigravity & Gemini / Google AI Services",
         "rules": [
-            # Antigravity Core Cloud Code Backend
+            # Antigravity Core Cloud Code Backend & Service Endpoints
+            "DOMAIN,antigravity-pa.googleapis.com",
+            "DOMAIN,antigravity.googleapis.com",
             "DOMAIN,daily-cloudcode-pa.googleapis.com",
             "DOMAIN,cloudcode-pa.googleapis.com",
-            "DOMAIN,autopush-cloudcode-pa.sandbox.googleapis.com",
-            "DOMAIN,preprod-daily-cloudcode-pa.sandbox.googleapis.com",
-            # Antigravity & AI Code Assist Endpoints
+            "DOMAIN,cloudaicompanion.googleapis.com",
+            "DOMAIN,geller-pa.googleapis.com",
+            "DOMAIN,robinfrontend-pa.googleapis.com",
+            "DOMAIN,aisandbox-pa.googleapis.com",
+            "DOMAIN-SUFFIX,antigravity-unleash.goog",
+            # Antigravity Web & AI Code Assist Endpoints
             "DOMAIN,antigravity.google.com",
             "DOMAIN,aicode.googleapis.com",
-            "DOMAIN,alkalimakersuiteapplets.pa.googleapis.com",
+            "DOMAIN,alkalicore-pa.clients6.google.com",
+            "DOMAIN,geminiweb-pa.clients6.google.com",
+            "DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com",
             "DOMAIN,alkalimakersuite-pa.clients6.google.com",
             "DOMAIN,proactivebackend-pa.googleapis.com",
             # Gemini API & Generative Language
             "DOMAIN,generativelanguage.googleapis.com",
             "DOMAIN-SUFFIX,generativeai.google",
-            "DOMAIN-KEYWORD,generativelanguage",
-            # Google AI Studio & MakerSuite
+            # Google AI Studio, MakerSuite & NotebookLM
             "DOMAIN,aistudio.google.com",
             "DOMAIN,makersuite.google.com",
+            "DOMAIN,notebooklm.google.com",
             "DOMAIN,ai.google.dev",
-            # Gemini Web Platforms
+            "DOMAIN-SUFFIX,ai.studio",
+            # Gemini & DeepMind Web Platforms
             "DOMAIN-SUFFIX,gemini.google.com",
+            "DOMAIN-SUFFIX,gemini.google",
+            "DOMAIN,gemini.gstatic.com",
             "DOMAIN-SUFFIX,bard.google.com",
-            # Google DeepMind
             "DOMAIN-SUFFIX,deepmind.google",
             "DOMAIN-SUFFIX,deepmind.com",
             # Google Cloud AI Platform
