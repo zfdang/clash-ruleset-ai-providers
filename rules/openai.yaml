@@ -1,19 +1,21 @@
 # NAME: OpenAI
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:34:08
+# UPDATED: 2026-10-15 09:59:01
 # DESCRIPTION: Rules for OpenAI (ChatGPT, API, Sora, Voice LiveKit/Egress IPs, CDN, ArkoseLabs)
-# DOMAIN: 14
+# DOMAIN: 17
 # DOMAIN-SUFFIX: 10
 # IP-CIDR: 23
-# TOTAL: 47
+# TOTAL: 50
 payload:
   - DOMAIN,browser-intake-datadoghq.com
   - DOMAIN,cdn.openaimerge.com
   - DOMAIN,chat.openai.com.cdn.cloudflare.net
   - DOMAIN,client-api.arkoselabs.com
+  - DOMAIN,o207216.ingest.sentry.io
   - DOMAIN,o33249.ingest.sentry.io
   - DOMAIN,openai-api.arkoselabs.com
+  - DOMAIN,openai.com.cdn.cloudflare.net
   - DOMAIN,openai.qualtrics.com
   - DOMAIN,openaiapi-site.azureedge.net
   - DOMAIN,openaiassets.blob.core.windows.net
@@ -21,6 +23,7 @@ payload:
   - DOMAIN,openaicom.imgix.net
   - DOMAIN,openaicomproductionae4b.blob.core.windows.net
   - DOMAIN,production-openaicom-storage.azureedge.net
+  - DOMAIN,rum.browser-intake-datadoghq.com
   - DOMAIN,static.cloudflareinsights.com
   - DOMAIN-SUFFIX,chat.com
   - DOMAIN-SUFFIX,chatgpt.com

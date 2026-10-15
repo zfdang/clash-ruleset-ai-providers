@@ -36,6 +36,7 @@ RULES_DATA = {
             # OpenAI Specific CDN & Dedicated Endpoints
             "DOMAIN,cdn.openaimerge.com",
             "DOMAIN,chat.openai.com.cdn.cloudflare.net",
+            "DOMAIN,openai.com.cdn.cloudflare.net",
             "DOMAIN,openaiassets.blob.core.windows.net",
             "DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net",
             "DOMAIN,openaicomproductionae4b.blob.core.windows.net",
@@ -44,8 +45,10 @@ RULES_DATA = {
             "DOMAIN,openaicom.imgix.net",
             "DOMAIN,static.cloudflareinsights.com",
             "DOMAIN,browser-intake-datadoghq.com",
+            "DOMAIN,rum.browser-intake-datadoghq.com",
             "DOMAIN,openai.qualtrics.com",
             "DOMAIN,o33249.ingest.sentry.io",
+            "DOMAIN,o207216.ingest.sentry.io",
             # Human Verification (Specific Arkose endpoints for OpenAI, avoid broad arkoselabs.com)
             "DOMAIN,openai-api.arkoselabs.com",
             "DOMAIN,client-api.arkoselabs.com",
@@ -91,8 +94,9 @@ RULES_DATA = {
             # CDN & Endpoints
             "DOMAIN,servd-anthropic-website.b-cdn.net",
             "DOMAIN,anthropic.imgix.net",
-            # Official IP Range (https://docs.anthropic.com/en/api/ip-addresses)
+            # Official IP Ranges (https://docs.anthropic.com/en/api/ip-addresses)
             "IP-CIDR,160.79.104.0/21,no-resolve",
+            "IP-CIDR6,2607:6bc0::/48,no-resolve",
         ],
     },
     "Antigravity": {
@@ -109,10 +113,13 @@ RULES_DATA = {
             "DOMAIN,robinfrontend-pa.googleapis.com",
             "DOMAIN,aisandbox-pa.googleapis.com",
             "DOMAIN-SUFFIX,antigravity-unleash.goog",
+            "DOMAIN-SUFFIX,antigravity.google",
             # Antigravity Web & AI Code Assist Endpoints
             "DOMAIN,antigravity.google.com",
             "DOMAIN,aicode.googleapis.com",
+            "DOMAIN,aida.googleapis.com",
             "DOMAIN,alkalicore-pa.clients6.google.com",
+            "DOMAIN,geminiweb-pa.clients.google.com",
             "DOMAIN,geminiweb-pa.clients6.google.com",
             "DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com",
             "DOMAIN,alkalimakersuite-pa.clients6.google.com",
@@ -120,12 +127,20 @@ RULES_DATA = {
             # Gemini API & Generative Language
             "DOMAIN,generativelanguage.googleapis.com",
             "DOMAIN-SUFFIX,generativeai.google",
-            # Google AI Studio, MakerSuite & NotebookLM
+            # Google AI Studio, MakerSuite, Jules & Coding Agents
             "DOMAIN,aistudio.google.com",
             "DOMAIN,makersuite.google.com",
-            "DOMAIN,notebooklm.google.com",
             "DOMAIN,ai.google.dev",
             "DOMAIN-SUFFIX,ai.studio",
+            "DOMAIN-SUFFIX,jules.google",
+            # NotebookLM Full Endpoints
+            "DOMAIN,notebooklm-pa.googleapis.com",
+            "DOMAIN,notebooklm.googleapis.com",
+            "DOMAIN,notebooklm.google.com",
+            "DOMAIN,labstailwind.pa.googleapis.com",
+            "DOMAIN-SUFFIX,notebooklm.google",
+            "DOMAIN-SUFFIX,notebook.google",
+            "DOMAIN,notebook.google.com",
             # Gemini & DeepMind Web Platforms
             "DOMAIN-SUFFIX,gemini.google.com",
             "DOMAIN-SUFFIX,gemini.google",

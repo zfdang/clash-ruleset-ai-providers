@@ -1,14 +1,15 @@
 # NAME: Antigravity
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:34:08
+# UPDATED: 2026-10-15 09:59:01
 # DESCRIPTION: Rules for Google Antigravity & Gemini / Google AI Services
-# DOMAIN: 23
-# DOMAIN-SUFFIX: 8
-# TOTAL: 31
+# DOMAIN: 29
+# DOMAIN-SUFFIX: 12
+# TOTAL: 41
 payload:
   - DOMAIN,ai.google.dev
   - DOMAIN,aicode.googleapis.com
+  - DOMAIN,aida.googleapis.com
   - DOMAIN,aiplatform.googleapis.com
   - DOMAIN,aisandbox-pa.googleapis.com
   - DOMAIN,aistudio.google.com
@@ -22,19 +23,28 @@ payload:
   - DOMAIN,daily-cloudcode-pa.googleapis.com
   - DOMAIN,geller-pa.googleapis.com
   - DOMAIN,gemini.gstatic.com
+  - DOMAIN,geminiweb-pa.clients.google.com
   - DOMAIN,geminiweb-pa.clients6.google.com
   - DOMAIN,generativelanguage.googleapis.com
+  - DOMAIN,labstailwind.pa.googleapis.com
   - DOMAIN,makersuite.google.com
+  - DOMAIN,notebook.google.com
+  - DOMAIN,notebooklm-pa.googleapis.com
   - DOMAIN,notebooklm.google.com
+  - DOMAIN,notebooklm.googleapis.com
   - DOMAIN,oauth2.googleapis.com
   - DOMAIN,proactivebackend-pa.googleapis.com
   - DOMAIN,robinfrontend-pa.googleapis.com
   - DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
   - DOMAIN-SUFFIX,ai.studio
   - DOMAIN-SUFFIX,antigravity-unleash.goog
+  - DOMAIN-SUFFIX,antigravity.google
   - DOMAIN-SUFFIX,bard.google.com
   - DOMAIN-SUFFIX,deepmind.com
   - DOMAIN-SUFFIX,deepmind.google
   - DOMAIN-SUFFIX,gemini.google
   - DOMAIN-SUFFIX,gemini.google.com
   - DOMAIN-SUFFIX,generativeai.google
+  - DOMAIN-SUFFIX,jules.google
+  - DOMAIN-SUFFIX,notebook.google
+  - DOMAIN-SUFFIX,notebooklm.google

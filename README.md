@@ -21,10 +21,10 @@
 
 | 规则集名称 | 适用范围 | 条目数 | GitHub 官方直连订阅链接 |
 | :--- | :--- | :---: | :--- |
-| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 89 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
-| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit 租户、专用 CDN、官方 Voice 出口 IP | 47 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml` |
-| **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 31 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml` |
-| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、官方 CIDR 网段 | 11 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
+| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 103 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
+| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit 租户、专用 CDN、官方 Voice 出口 IP | 50 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml` |
+| **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 41 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml` |
+| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、官方 IPv4/IPv6 网段 | 12 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
 
 > 仓库根目录与 `rules/` 子目录下的文件完全一致，您可以按喜好引用。
 
@@ -136,19 +136,20 @@ rules:
 - **核心站点与产品**：`DOMAIN-SUFFIX,openai.com`, `DOMAIN-SUFFIX,chatgpt.com`, `DOMAIN-SUFFIX,chat.com`, `DOMAIN-SUFFIX,sora.com`, `DOMAIN-SUFFIX,oaistatic.com`, `DOMAIN-SUFFIX,oaiusercontent.com`, `DOMAIN-SUFFIX,oaistatsig.com`, `DOMAIN-SUFFIX,crixet.com`, `DOMAIN-SUFFIX,chatgpt.site`
 - **实时语音通讯 (LiveKit 专属租户)**：`DOMAIN-SUFFIX,chatgpt.livekit.cloud`
 - **人机验证 (ArkoseLabs 专用子域)**：`DOMAIN,openai-api.arkoselabs.com`, `DOMAIN,client-api.arkoselabs.com`
-- **专用 CDN / 资源存储 / 精准埋点**：`DOMAIN,cdn.openaimerge.com`, `DOMAIN,chat.openai.com.cdn.cloudflare.net`, `DOMAIN,openaiassets.blob.core.windows.net`, `DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net`, `DOMAIN,openaicomproductionae4b.blob.core.windows.net`, `DOMAIN,production-openaicom-storage.azureedge.net`, `DOMAIN,openaiapi-site.azureedge.net`, `DOMAIN,openaicom.imgix.net`, `DOMAIN,browser-intake-datadoghq.com`, `DOMAIN,static.cloudflareinsights.com`, `DOMAIN,openai.qualtrics.com`, `DOMAIN,o33249.ingest.sentry.io`
+- **专用 CDN / 资源存储 / 精准埋点**：`DOMAIN,cdn.openaimerge.com`, `DOMAIN,chat.openai.com.cdn.cloudflare.net`, `DOMAIN,openai.com.cdn.cloudflare.net`, `DOMAIN,openaiassets.blob.core.windows.net`, `DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net`, `DOMAIN,openaicomproductionae4b.blob.core.windows.net`, `DOMAIN,production-openaicom-storage.azureedge.net`, `DOMAIN,openaiapi-site.azureedge.net`, `DOMAIN,openaicom.imgix.net`, `DOMAIN,browser-intake-datadoghq.com`, `DOMAIN,rum.browser-intake-datadoghq.com`, `DOMAIN,static.cloudflareinsights.com`, `DOMAIN,openai.qualtrics.com`, `DOMAIN,o33249.ingest.sentry.io`, `DOMAIN,o207216.ingest.sentry.io`
 - **官方 ChatGPT Voice 出口 IP**：`4.151.200.38/32` 等共计 23 个 `/32`（数据来源：`https://openai.com/chatgpt-voice.json`）
 
 ### 🧠 Anthropic
 - **核心站点与 Web**：`DOMAIN-SUFFIX,anthropic.com`, `DOMAIN-SUFFIX,claude.ai`, `DOMAIN-SUFFIX,claude.com`, `DOMAIN-SUFFIX,clau.de`, `DOMAIN-SUFFIX,claude.dev`, `DOMAIN-SUFFIX,claudeusercontent.com`
 - **开发者与 MCP 专用**：`DOMAIN-SUFFIX,claudemcpclient.com`, `DOMAIN-SUFFIX,claudemcpcontent.com`
 - **专用 CDN**：`DOMAIN,servd-anthropic-website.b-cdn.net`, `DOMAIN,anthropic.imgix.net`
-- **官方公布 IP 网段**：`IP-CIDR,160.79.104.0/21,no-resolve`（数据来源：`https://docs.anthropic.com/en/api/ip-addresses`）
+- **官方公布 IP 网段**：`IP-CIDR,160.79.104.0/21,no-resolve`（IPv4）、`IP-CIDR6,2607:6bc0::/48,no-resolve`（IPv6）（数据来源：[Anthropic Docs](https://docs.anthropic.com/en/api/ip-addresses)）
 
 ### 🚀 Antigravity (Google)
-- **后端服务 (Cloud Code PA / 调度服务)**：`DOMAIN,antigravity-pa.googleapis.com`, `DOMAIN,antigravity.googleapis.com`, `DOMAIN,daily-cloudcode-pa.googleapis.com`, `DOMAIN,cloudcode-pa.googleapis.com`, `DOMAIN,cloudaicompanion.googleapis.com`, `DOMAIN,geller-pa.googleapis.com`, `DOMAIN,robinfrontend-pa.googleapis.com`, `DOMAIN,aisandbox-pa.googleapis.com`, `DOMAIN-SUFFIX,antigravity-unleash.goog`
-- **推理与辅助接口**：`DOMAIN,antigravity.google.com`, `DOMAIN,aicode.googleapis.com`, `DOMAIN,alkalicore-pa.clients6.google.com`, `DOMAIN,geminiweb-pa.clients6.google.com`, `DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com`, `DOMAIN,alkalimakersuite-pa.clients6.google.com`, `DOMAIN,generativelanguage.googleapis.com`, `DOMAIN-SUFFIX,generativeai.google`, `DOMAIN,proactivebackend-pa.googleapis.com`, `DOMAIN,aiplatform.googleapis.com`
-- **官方产品与平台**：`DOMAIN,aistudio.google.com`, `DOMAIN,makersuite.google.com`, `DOMAIN,notebooklm.google.com`, `DOMAIN,ai.google.dev`, `DOMAIN-SUFFIX,ai.studio`, `DOMAIN-SUFFIX,gemini.google.com`, `DOMAIN-SUFFIX,gemini.google`, `DOMAIN,gemini.gstatic.com`, `DOMAIN-SUFFIX,bard.google.com`, `DOMAIN-SUFFIX,deepmind.google`, `DOMAIN-SUFFIX,deepmind.com`
+- **后端服务 (Cloud Code PA / 调度服务)**：`DOMAIN,antigravity-pa.googleapis.com`, `DOMAIN,antigravity.googleapis.com`, `DOMAIN,daily-cloudcode-pa.googleapis.com`, `DOMAIN,cloudcode-pa.googleapis.com`, `DOMAIN,cloudaicompanion.googleapis.com`, `DOMAIN,geller-pa.googleapis.com`, `DOMAIN,robinfrontend-pa.googleapis.com`, `DOMAIN,aisandbox-pa.googleapis.com`, `DOMAIN-SUFFIX,antigravity-unleash.goog`, `DOMAIN-SUFFIX,antigravity.google`
+- **推理与辅助接口**：`DOMAIN,antigravity.google.com`, `DOMAIN,aicode.googleapis.com`, `DOMAIN,aida.googleapis.com`, `DOMAIN,alkalicore-pa.clients6.google.com`, `DOMAIN,geminiweb-pa.clients.google.com`, `DOMAIN,geminiweb-pa.clients6.google.com`, `DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com`, `DOMAIN,alkalimakersuite-pa.clients6.google.com`, `DOMAIN,generativelanguage.googleapis.com`, `DOMAIN-SUFFIX,generativeai.google`, `DOMAIN,proactivebackend-pa.googleapis.com`, `DOMAIN,aiplatform.googleapis.com`
+- **官方产品与平台**：`DOMAIN,aistudio.google.com`, `DOMAIN,makersuite.google.com`, `DOMAIN,ai.google.dev`, `DOMAIN-SUFFIX,ai.studio`, `DOMAIN-SUFFIX,jules.google`, `DOMAIN-SUFFIX,gemini.google.com`, `DOMAIN-SUFFIX,gemini.google`, `DOMAIN,gemini.gstatic.com`, `DOMAIN-SUFFIX,bard.google.com`, `DOMAIN-SUFFIX,deepmind.google`, `DOMAIN-SUFFIX,deepmind.com`
+- **NotebookLM 专属端点**：`DOMAIN,notebooklm-pa.googleapis.com`, `DOMAIN,notebooklm.googleapis.com`, `DOMAIN,notebooklm.google.com`, `DOMAIN,labstailwind.pa.googleapis.com`, `DOMAIN-SUFFIX,notebooklm.google`, `DOMAIN-SUFFIX,notebook.google`, `DOMAIN,notebook.google.com`
 - **身份认证**：`DOMAIN,oauth2.googleapis.com`
 
 ---
@@ -161,8 +162,8 @@ rules:
 
 | 来源分类 | 主要出处与依据 | 作用与贡献 |
 | :--- | :--- | :--- |
-| **官方技术文档与端点** | • OpenAI Voice IP List: `https://openai.com/chatgpt-voice.json`<br>• Anthropic API IP Ranges: `https://docs.anthropic.com/en/api/ip-addresses` | 提供厂商第一手官方认可的入站与出站固定 CIDR / IP，保证语音流与 API 通信不漏球。 |
-| **权威开源规则上游** | • `v2fly/domain-list-community` (MetaCubeX geosite 上游)<br>• `ACL4SSR`、`dler-io`、`blackmatrix7` (精炼过滤版) | 汇聚全球开发者长期维护的可靠域名库，用于交叉校验新老域名与专有 CDN。 |
+| **官方技术文档与端点** | • OpenAI Voice IP: `https://openai.com/chatgpt-voice.json`<br>• OpenAI 网络白名单建议: [Help Article 9247338](https://help.openai.com/en/articles/9247338)<br>• Anthropic API IP Ranges: `https://docs.anthropic.com/en/api/ip-addresses` | 提供厂商第一手官方认可的入站与出站固定 CIDR（含 IPv4/IPv6）以及专属 Sentry/Datadog 项目。 |
+| **权威开源规则上游** | • `v2fly/domain-list-community` (MetaCubeX geosite 上游，包含 `openai`, `anthropic`, `google-deepmind`)<br>• `ACL4SSR`、`dler-io`、`blackmatrix7` (精炼过滤版) | 汇聚全球开发者长期维护的可靠域名库，用于交叉校验新老域名与专有 CDN。 |
 | **本地抓包与逆向分析** | • Google Antigravity 本地 `language_server` 与客户端网络抓包 | 精准提取 Antigravity 编辑器在 Agent 运行与代码辅助时所建立的私有 PA 调度连接。 |
 | **网络真实性测探** | • WHOIS 溯源反查<br>• HTTP 重定向与证书链检测 | 剔除已失效域名（如 `ai.com`）与历史误收录机房 ASN（如 Vultr `AS20473`）。 |
 
@@ -181,8 +182,10 @@ rules:
 | `crixet.com`, `chatgpt.site` | 重定向与关联资产 | OpenAI 官方备案持有的相关产品辅助域名（经 v2fly / MetaCubeX 确认收录）。 |
 | `chatgpt.livekit.cloud` | 实时语音通话 | ChatGPT 官方高级语音模式 (Advanced Voice Mode) 专用的 LiveKit WebRTC 租户端点。 |
 | `cdn.openaimerge.com`, `openaiassets.blob.core.windows.net`, `openaicom-*.azurefd.net` | 专用 CDN 与存储 | 包含 OpenAI 专属租户标识的 Microsoft Azure Front Door 及 Azure Blob 存储节点。 |
+| `chat.openai.com.cdn.cloudflare.net`, `openai.com.cdn.cloudflare.net` | Cloudflare CDN 回源 | OpenAI 在 Cloudflare 上部署的专属 CNAME 回源节点（v2fly 与 MetaCubeX 标配）。 |
 | `openai.qualtrics.com` | 用户调查与反馈 | OpenAI 在 Qualtrics 平台开设的专有问卷收集子域名。 |
-| `o33249.ingest.sentry.io` | 精准崩溃上报 | OpenAI 组织在 Sentry 的专属数据上报主机，**精准定位单个主机，坚决不通配全局 `sentry.io`**。 |
+| `o33249.ingest.sentry.io`, `o207216.ingest.sentry.io` | 精准崩溃上报 | OpenAI 组织在 Sentry 官方备案的专属项目接入点（**官方文档 Article 9247338 明确指定**）。 |
+| `browser-intake-datadoghq.com`, `rum.browser-intake-datadoghq.com` | 性能与监控 | Datadog 针对 OpenAI 前端 RUM 监控的接收节点（**官方文档 Article 9247338 明确指定**）。 |
 | `openai-api.arkoselabs.com`, `client-api.arkoselabs.com` | 人机验证 (Captcha) | OpenAI 登录注册与防刷安全验证所使用的专属子域名（拒绝使用泛 `arkoselabs.com`）。 |
 | 23 个 `/32` IP (`4.151.200.38/32` 等) | 官方 Voice 出口 IP | **官方公布**：直接提取自官方权威地址 `https://openai.com/chatgpt-voice.json`。 |
 
@@ -196,20 +199,23 @@ rules:
 | `claudeusercontent.com` | 渲染与用户内容 | **关键依赖**：Claude 用于展示代码预览、HTML/SVG 交互沙箱 (Artifacts) 及多模态素材的核心资产域。 |
 | `claudemcpclient.com`, `claudemcpcontent.com` | 协议专有端点 | Claude Model Context Protocol (MCP) 模型上下文协议体系专用的客户端与上下文交换域名。 |
 | `servd-anthropic-website.b-cdn.net`, `anthropic.imgix.net` | 静态素材 CDN | 官方官方文档站点与前端静态图片加速端点（BunnyCDN 与 Imgix）。 |
-| `IP-CIDR,160.79.104.0/21,no-resolve` | 官方公布 IP 网段 | **官方公布**：直接来源于 Anthropic 开发者文档 [IP Addresses](https://docs.anthropic.com/en/api/ip-addresses)，涵盖全部出入站 API CIDR。 |
+| `IP-CIDR,160.79.104.0/21,no-resolve` | 官方 IPv4 网段 | **官方公布**：直接来源于 [Anthropic Docs: IP Addresses](https://docs.anthropic.com/en/api/ip-addresses)，覆盖所有出入站连接。 |
+| `IP-CIDR6,2607:6bc0::/48,no-resolve` | 官方 IPv6 网段 | **官方公布**：来源同上，为支持 IPv6 双栈网络的入站连接提供完整覆盖。 |
 
 #### 🚀 Antigravity (Google / Gemini) 规则来源
 
 | 条目 / 规则 | 归属分类 | 详细来源与技术依据 |
 | :--- | :--- | :--- |
 | `daily-cloudcode-pa.googleapis.com`, `cloudcode-pa.googleapis.com` | IDE 核心调度后端 | Antigravity 官方编辑器本地后台语言服务 (`language_server`) 启动参数中强制指定的云端 PA 通信后端。 |
-| `antigravity-pa.googleapis.com`, `antigravity.googleapis.com`, `antigravity.google.com` | 产品专属服务 | Google 内部为 Antigravity AI 原生编辑器独立配置的服务总线与 API 映射端点。 |
+| `antigravity-pa.googleapis.com`, `antigravity.googleapis.com`, `antigravity.google.com`, `antigravity.google` | 产品专属服务与域名 | Google 内部为 Antigravity AI 原生编辑器独立配置的服务总线、API 映射端点及 `.google` 顶级域。 |
 | `antigravity-unleash.goog` | 功能灰度与分流 | Antigravity 编辑器内置功能灰度发布（基于 Unleash 系统）专用的 Google `.goog` 顶级域名。 |
 | `cloudaicompanion.googleapis.com`, `geller-pa.googleapis.com`, `robinfrontend-pa.googleapis.com` | AI Companion 辅助 | Google Cloud Code / Gemini Code Assist 代码理解与补全的核心后台服务（上游 v2fly 交叉确认）。 |
+| `aicode.googleapis.com`, `aida.googleapis.com` | 开发者 AI 后端 | Google 为 Cloud Code 及 Android Studio 提供的 AIDA (AI Developer Assistance) 与代码生成专有通道。 |
 | `generativelanguage.googleapis.com`, `generativeai.google` | Gemini 推理 API | Google Gemini 与 PaLM 系列大语言模型官方对外 Generative Language API 的核心通信接口。 |
-| `alkalicore-pa.clients6.google.com`, `geminiweb-pa.clients6.google.com`, `webchannel-alkalimakersuite-pa.clients6.google.com` | Web 通道与长连接 | Gemini 网页工作台与 MakerSuite 建立双向长连接 (WebChannel / gRPC over HTTP) 的必要端点。 |
+| `alkalicore-pa.clients6.google.com`, `geminiweb-pa.clients*.google.com`, `webchannel-alkalimakersuite-pa.clients6.google.com` | Web 通道与长连接 | Gemini 网页工作台与 MakerSuite 建立双向长连接 (WebChannel / gRPC over HTTP) 的必要端点。 |
 | `aistudio.google.com`, `makersuite.google.com`, `ai.google.dev`, `ai.studio` | 官方开发者平台 | Google AI Studio（原 MakerSuite）官方控制台与 Google AI 开发者门户入口。 |
-| `notebooklm.google.com` | 知识与研究助手 | Google DeepMind 驱动的 AI 交互式笔记本应用 NotebookLM 官方主域名。 |
+| `jules.google` | 异步 AI 编程 Agent | Google 官方推出的下一代异步软件工程 AI Agent (Jules) 平台主域名。 |
+| `notebooklm.google`, `notebook.google`, `notebooklm*.googleapis.com`, `labstailwind.pa.googleapis.com` | NotebookLM 完整链路 | Google DeepMind 驱动的 AI 交互式笔记本 NotebookLM 官方 Web 域名与 Project Tailwind 专属 API。 |
 | `gemini.google`, `gemini.google.com`, `gemini.gstatic.com` | 产品与静态资源 | Gemini 官方品牌域名、对话主页及专属静态资源加速域名（严格隔离于通用 `gstatic.com`）。 |
 | `deepmind.google`, `deepmind.com` | 机构核心主页 | Google DeepMind 官方研究主页及模型发布门户。 |
 | `oauth2.googleapis.com` | 身份认证与凭据 | Antigravity Agent 模式下进行 Google 账号 Token 刷新与鉴权交换的必要端点。 |
