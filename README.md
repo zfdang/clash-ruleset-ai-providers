@@ -9,25 +9,11 @@
 
 ---
 
-## 🎯 规则设计准则：恰到好处的精准度
+## 🎯 设计原则
 
-> **既不盲目扩大范围导致误伤，也不遗漏关键依赖导致服务异常。**
-
-### 1. 杜绝“滥用全局域名”造成的误伤
-很多传统 AI 规则集将公共第三方服务的大域名直接打包收录，导致极大的副作用：
-- **`stripe.com` (通用支付)**：若强行代理进 AI 节点，在访问其他完全无关的海外电商/SaaS 付款时会频繁触发风控阻断。
-- **`auth0.com` (通用身份认证)**：全球成千上万个非 AI 网站使用 Auth0 登录，强行代理会导致登录状态混乱。
-- **`challenges.cloudflare.com` (Cloudflare Turnstile 验证码)**：全网海量网站使用该验证服务，不应归为 AI 专有规则。
-- **`arkoselabs.com`**：本项目仅精准收录 OpenAI 专用的验证子域名（`openai-api.arkoselabs.com` 与 `client-api.arkoselabs.com`），而非粗暴通配全局。
-
-### 2. Antigravity 的高精度分流（保护 Google 日常服务）
-Google DeepMind 的 **Antigravity** 编辑器依赖 Google 后端。若粗暴匹配 `google.com` 或 `googleapis.com`，会将用户的日常 Google 搜索、YouTube 视频、Gmail 以及 Chrome 同步流量全部绑架到 Antigravity 节点上。
-
-本项目通过反编译分析 `Antigravity`、`language_server` 后台服务与抓包，精确提取了其核心服务域名：
-- **IDE 核心调度后端**：`daily-cloudcode-pa.googleapis.com`、`cloudcode-pa.googleapis.com`、`preprod-daily-cloudcode-pa.sandbox.googleapis.com`
-- **模型推理与代码生成 API**：`generativelanguage.googleapis.com`、`aicode.googleapis.com`、`aiplatform.googleapis.com`、`proactivebackend-pa.googleapis.com`
-- **平台与工作台**：`antigravity.google.com`、`aistudio.google.com`、`makersuite.google.com`、`gemini.google.com`、`deepmind.google`
-- **Agent 鉴权交换**：`oauth2.googleapis.com`
+- **拒绝过度匹配**：仅收录 AI 专有资产，坚决不收录 `stripe.com`、`auth0.com`、`sentry.io` 等通用第三方域名，避免非 AI 业务误伤与支付风控。
+- **隔离 Google 流量**：Antigravity 仅匹配其专有 PA 后端与 Gemini 接口，绝不使用 `google.com` / `googleapis.com` 泛后缀，不影响日常 Google 服务。
+- **规则纯粹精准**：不依赖易误判的关键词 (`DOMAIN-KEYWORD`)，全面采用精准主机 (`DOMAIN`)、后缀 (`DOMAIN-SUFFIX`) 与厂商官方公布的 CIDR。
 
 ---
 
