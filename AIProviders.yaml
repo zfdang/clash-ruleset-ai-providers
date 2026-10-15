@@ -1,15 +1,17 @@
 # NAME: AIProviders
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:34:08
+# UPDATED: 2026-10-15 09:59:01
 # DESCRIPTION: Consolidated ruleset for OpenAI, Anthropic, and Antigravity (Gemini/Google AI)
-# DOMAIN: 39
-# DOMAIN-SUFFIX: 26
+# DOMAIN: 48
+# DOMAIN-SUFFIX: 30
 # IP-CIDR: 24
-# TOTAL: 89
+# IP-CIDR6: 1
+# TOTAL: 103
 payload:
   - DOMAIN,ai.google.dev
   - DOMAIN,aicode.googleapis.com
+  - DOMAIN,aida.googleapis.com
   - DOMAIN,aiplatform.googleapis.com
   - DOMAIN,aisandbox-pa.googleapis.com
   - DOMAIN,aistudio.google.com
@@ -28,13 +30,20 @@ payload:
   - DOMAIN,daily-cloudcode-pa.googleapis.com
   - DOMAIN,geller-pa.googleapis.com
   - DOMAIN,gemini.gstatic.com
+  - DOMAIN,geminiweb-pa.clients.google.com
   - DOMAIN,geminiweb-pa.clients6.google.com
   - DOMAIN,generativelanguage.googleapis.com
+  - DOMAIN,labstailwind.pa.googleapis.com
   - DOMAIN,makersuite.google.com
+  - DOMAIN,notebook.google.com
+  - DOMAIN,notebooklm-pa.googleapis.com
   - DOMAIN,notebooklm.google.com
+  - DOMAIN,notebooklm.googleapis.com
+  - DOMAIN,o207216.ingest.sentry.io
   - DOMAIN,o33249.ingest.sentry.io
   - DOMAIN,oauth2.googleapis.com
   - DOMAIN,openai-api.arkoselabs.com
+  - DOMAIN,openai.com.cdn.cloudflare.net
   - DOMAIN,openai.qualtrics.com
   - DOMAIN,openaiapi-site.azureedge.net
   - DOMAIN,openaiassets.blob.core.windows.net
@@ -44,12 +53,14 @@ payload:
   - DOMAIN,proactivebackend-pa.googleapis.com
   - DOMAIN,production-openaicom-storage.azureedge.net
   - DOMAIN,robinfrontend-pa.googleapis.com
+  - DOMAIN,rum.browser-intake-datadoghq.com
   - DOMAIN,servd-anthropic-website.b-cdn.net
   - DOMAIN,static.cloudflareinsights.com
   - DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
   - DOMAIN-SUFFIX,ai.studio
   - DOMAIN-SUFFIX,anthropic.com
   - DOMAIN-SUFFIX,antigravity-unleash.goog
+  - DOMAIN-SUFFIX,antigravity.google
   - DOMAIN-SUFFIX,bard.google.com
   - DOMAIN-SUFFIX,chat.com
   - DOMAIN-SUFFIX,chatgpt.com
@@ -68,6 +79,9 @@ payload:
   - DOMAIN-SUFFIX,gemini.google
   - DOMAIN-SUFFIX,gemini.google.com
   - DOMAIN-SUFFIX,generativeai.google
+  - DOMAIN-SUFFIX,jules.google
+  - DOMAIN-SUFFIX,notebook.google
+  - DOMAIN-SUFFIX,notebooklm.google
   - DOMAIN-SUFFIX,oaistatic.com
   - DOMAIN-SUFFIX,oaistatsig.com
   - DOMAIN-SUFFIX,oaiusercontent.com
@@ -97,3 +111,4 @@ payload:
   - IP-CIDR,68.155.152.41/32,no-resolve
   - IP-CIDR,72.146.20.246/32,no-resolve
   - IP-CIDR,74.248.148.7/32,no-resolve
+  - IP-CIDR6,2607:6bc0::/48,no-resolve
