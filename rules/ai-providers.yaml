@@ -1,14 +1,12 @@
 # NAME: AIProviders
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:10:37
+# UPDATED: 2026-10-15 09:15:28
 # DESCRIPTION: Consolidated ruleset for OpenAI, Anthropic, and Antigravity (Gemini/Google AI)
 # DOMAIN: 27
 # DOMAIN-SUFFIX: 17
 # DOMAIN-KEYWORD: 5
-# IP-CIDR: 2
-# IP-ASN: 1
-# TOTAL: 52
+# TOTAL: 49
 payload:
   - DOMAIN,ai.google.dev
   - DOMAIN,aicode.googleapis.com
@@ -59,6 +57,3 @@ payload:
   - DOMAIN-KEYWORD,claude
   - DOMAIN-KEYWORD,generativelanguage
   - DOMAIN-KEYWORD,openai
-  - IP-CIDR,24.199.123.28/32,no-resolve
-  - IP-CIDR,64.23.132.171/32,no-resolve
-  - IP-ASN,20473,no-resolve

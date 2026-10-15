@@ -46,10 +46,6 @@ RULES_DATA = {
             # Keywords
             "DOMAIN-KEYWORD,openai",
             "DOMAIN-KEYWORD,chatgpt",
-            # Dedicated IP / ASN
-            "IP-CIDR,24.199.123.28/32,no-resolve",
-            "IP-CIDR,64.23.132.171/32,no-resolve",
-            "IP-ASN,20473,no-resolve",
         ],
     },
     "Anthropic": {

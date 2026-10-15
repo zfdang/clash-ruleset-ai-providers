@@ -35,10 +35,10 @@ Google DeepMind 的 **Antigravity** 编辑器依赖 Google 后端。若粗暴匹
 
 | 规则集名称 | 适用范围 | 条目数 | GitHub Raw 订阅链接 | CDN 快速订阅链接 (jsDelivr) |
 | :--- | :--- | :---: | :--- | :--- |
-| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与 IP） | 52+ | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml) |
-| **Antigravity** | Google Antigravity 编辑器、Gemini API、Cloud Code PA 后端 | 21+ | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml) |
-| **OpenAI** | ChatGPT (Web / 桌面端 / 语音通话 LiveKit)、OpenAI API、专用 CDN | 23+ | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml) |
-| **Anthropic** | Claude (Web / 桌面端)、Anthropic API、Claude 专有 CDN | 8+ | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml) |
+| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名） | 49 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml) |
+| **Antigravity** | Google Antigravity 编辑器、Gemini API、Cloud Code PA 后端 | 21 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml) |
+| **OpenAI** | ChatGPT (Web / 桌面端 / 语音通话 LiveKit)、OpenAI API、专用 CDN | 20 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml) |
+| **Anthropic** | Claude (Web / 桌面端)、Anthropic API、Claude 专有 CDN | 8 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml) |
 
 > 仓库根目录与 `rules/` 子目录下的文件完全一致，您可以按喜好引用。
 
@@ -151,7 +151,7 @@ rules:
 - **实时语音通讯 (LiveKit WebRTC)**：`DOMAIN-SUFFIX,chatgpt.livekit.cloud`, `DOMAIN-SUFFIX,host.livekit.cloud`, `DOMAIN-SUFFIX,turn.livekit.cloud`
 - **人机验证 (ArkoseLabs 专用子域)**：`DOMAIN,openai-api.arkoselabs.com`, `DOMAIN,client-api.arkoselabs.com`
 - **专用 CDN / 资源存储**：`DOMAIN,chat.openai.com.cdn.cloudflare.net`, `DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net`, `DOMAIN,openaicomproductionae4b.blob.core.windows.net`, `DOMAIN,production-openaicom-storage.azureedge.net`, `DOMAIN,openaiapi-site.azureedge.net`, `DOMAIN,openaicom.imgix.net`, `DOMAIN,browser-intake-datadoghq.com`, `DOMAIN,static.cloudflareinsights.com`
-- **关键词与专用 IP/ASN**：`DOMAIN-KEYWORD,openai`, `DOMAIN-KEYWORD,chatgpt`, `IP-CIDR,24.199.123.28/32,no-resolve`, `IP-CIDR,64.23.132.171/32,no-resolve`, `IP-ASN,20473,no-resolve`
+- **关键词匹配**：`DOMAIN-KEYWORD,openai`, `DOMAIN-KEYWORD,chatgpt`
 
 ### 🧠 Anthropic
 - **核心站点与 Web**：`DOMAIN-SUFFIX,anthropic.com`, `DOMAIN-SUFFIX,claude.ai`, `DOMAIN-SUFFIX,claude.com`, `DOMAIN-SUFFIX,claudeusercontent.com`
