@@ -1,0 +1,25 @@
+name: Build Rulesets
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Run build script
+      run: python3 scripts/build.py
+
+    - name: Verify git status is clean
+      run: |
+        git diff --exit-code || (echo "Rulesets are out of date! Please run 'python3 scripts/build.py' and commit changes." && exit 1)
