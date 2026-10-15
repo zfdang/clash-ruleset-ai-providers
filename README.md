@@ -21,10 +21,10 @@
 
 | 规则集名称 | 适用范围 | 条目数 | GitHub Raw 订阅链接 | CDN 快速订阅链接 (jsDelivr) |
 | :--- | :--- | :---: | :--- | :--- |
-| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 89 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml) |
-| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit 租户、专用 CDN、官方 Voice 出口 IP | 47 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml) |
-| **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 31 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml) |
-| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、官方 CIDR 网段 | 11 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml) | [CDN 链接](https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml) |
+| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 89 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml) | [CDN 链接](https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml) |
+| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit 租户、专用 CDN、官方 Voice 出口 IP | 47 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml) | [CDN 链接](https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml) |
+| **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 31 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml) | [CDN 链接](https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml) |
+| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、官方 CIDR 网段 | 11 | [Raw 链接](https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml) | [CDN 链接](https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml) |
 
 > 仓库根目录与 `rules/` 子目录下的文件完全一致，您可以按喜好引用。
 
@@ -70,21 +70,21 @@ rule-providers:
   antigravity-rules:
     type: http
     behavior: classical
-    url: "https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml"
+    url: "https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Antigravity.yaml"
     path: ./ruleset/Antigravity.yaml
     interval: 86400
 
   openai-rules:
     type: http
     behavior: classical
-    url: "https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml"
+    url: "https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/OpenAI.yaml"
     path: ./ruleset/OpenAI.yaml
     interval: 86400
 
   anthropic-rules:
     type: http
     behavior: classical
-    url: "https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml"
+    url: "https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/Anthropic.yaml"
     path: ./ruleset/Anthropic.yaml
     interval: 86400
 
@@ -118,7 +118,7 @@ rule-providers:
   ai-providers:
     type: http
     behavior: classical
-    url: "https://fastly.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml"
+    url: "https://testingcf.jsdelivr.net/gh/zfdang/clash-ruleset-ai-providers@main/AIProviders.yaml"
     path: ./ruleset/AIProviders.yaml
     interval: 86400
 
