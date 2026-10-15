@@ -222,25 +222,6 @@ rules:
 
 ---
 
-### 3. 被剔除规则的溯源与证伪证据
-
-为保持规则集极致纯净，本项目对传统规则集中的常见错误条目进行了严格审计并予以剔除：
-
-1. **`ai.com`（已剔除）**：
-   - *历史背景*：曾被 OpenAI 短暂租用并跳转到 ChatGPT。
-   - *实测现状*：经 `curl -sIL https://ai.com` 测探，目前已跳转至 `https://ai.com/start`，由一家独立的第三方 AI Agent 公司运营，**已完全脱离 OpenAI 体系**，上游主流列表均已废弃。
-2. **`IP-ASN,20473`（已剔除）**：
-   - *历史背景*：blackmatrix7 等规则集中收录。
-   - *实测现状*：WHOIS 反查结果为 `The Constant Company LLC`（即主机商 **Vultr** 的全机房 ASN）。若收录会导致访问 Vultr 全球所有 VPS 的流量均被劫持进 AI 节点，属于严重收录失误。
-3. **`24.199.123.28/32`, `64.23.132.171/32`（已剔除）**：
-   - *实测现状*：WHOIS 查证为 DigitalOcean 机房的个人反代主机，非 OpenAI 官方资产。
-4. **`stripe.com`, `auth0.com`, `challenges.cloudflare.com`, `sentry.io`（已剔除）**：
-   - *实测现状*：均为全球通用的公共基础设施，通配收录会引发全局非 AI 业务的误伤与支付风控。OpenAI 所需的专用部分已通过特定主机（如 `o33249.ingest.sentry.io`、`openai-api.arkoselabs.com`）精准替代。
-5. **所有关键词规则 (`DOMAIN-KEYWORD`)（已剔除）**：
-   - *实测现状*：关键词会粗暴匹配任意包含子串的无关网站（如包含 `openai` 或 `claude` 的个人博客与讨论帖），违背精准分流原则。上游权威列表（v2fly、MetaCubeX）均不采用关键词匹配。
-
----
-
 ## 💡 Antigravity 常见报错与排查建议
 
 当 Antigravity 在 Agent 执行模式下报错：
