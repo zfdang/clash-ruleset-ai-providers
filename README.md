@@ -167,6 +167,88 @@ rules:
 
 ---
 
+## 🌐 域名与 IP 来源出处深度解析 (Provenance & Sources)
+
+本项目收录的所有域名与 IP 规则均有据可查，严格遵循 **“官方文档优先、权威上游交叉验证、精准实测兜底”** 的原则。
+
+### 1. 核心数据来源体系
+
+| 来源分类 | 主要出处与依据 | 作用与贡献 |
+| :--- | :--- | :--- |
+| **官方技术文档与端点** | • OpenAI Voice IP List: `https://openai.com/chatgpt-voice.json`<br>• Anthropic API IP Ranges: `https://docs.anthropic.com/en/api/ip-addresses` | 提供厂商第一手官方认可的入站与出站固定 CIDR / IP，保证语音流与 API 通信不漏球。 |
+| **权威开源规则上游** | • `v2fly/domain-list-community` (MetaCubeX geosite 上游)<br>• `ACL4SSR`、`dler-io`、`blackmatrix7` (精炼过滤版) | 汇聚全球开发者长期维护的可靠域名库，用于交叉校验新老域名与专有 CDN。 |
+| **本地抓包与逆向分析** | • Google Antigravity 本地 `language_server` 与客户端网络抓包 | 精准提取 Antigravity 编辑器在 Agent 运行与代码辅助时所建立的私有 PA 调度连接。 |
+| **网络真实性测探** | • WHOIS 溯源反查<br>• HTTP 重定向与证书链检测 | 剔除已失效域名（如 `ai.com`）与历史误收录机房 ASN（如 Vultr `AS20473`）。 |
+
+---
+
+### 2. 各 Provider 规则归属明细
+
+#### 🤖 OpenAI 规则来源
+
+| 条目 / 规则 | 归属分类 | 详细来源与技术依据 |
+| :--- | :--- | :--- |
+| `openai.com`, `chatgpt.com`, `oaistatic.com`, `oaiusercontent.com` | 核心产品资产 | OpenAI 官方 Web / App 核心服务主域名与前端静态文件托管域（上游 v2fly 标配）。 |
+| `chat.com` | 核心产品资产 | OpenAI 于 2024 年底斥巨资收购并直接 301 重定向至 ChatGPT 首页的顶级官方域名。 |
+| `sora.com` | 核心产品资产 | OpenAI 旗下文生视频模型 Sora 的官方独立 Web 产品主域名。 |
+| `oaistatsig.com` | 特征开关与灰度 | OpenAI 官方搭建的专属 Statsig 代理网关，**取代有误伤风险的通用 `statsig.com`**。 |
+| `crixet.com`, `chatgpt.site` | 重定向与关联资产 | OpenAI 官方备案持有的相关产品辅助域名（经 v2fly / MetaCubeX 确认收录）。 |
+| `chatgpt.livekit.cloud` | 实时语音通话 | ChatGPT 官方高级语音模式 (Advanced Voice Mode) 专用的 LiveKit WebRTC 租户端点。 |
+| `cdn.openaimerge.com`, `openaiassets.blob.core.windows.net`, `openaicom-*.azurefd.net` | 专用 CDN 与存储 | 包含 OpenAI 专属租户标识的 Microsoft Azure Front Door 及 Azure Blob 存储节点。 |
+| `openai.qualtrics.com` | 用户调查与反馈 | OpenAI 在 Qualtrics 平台开设的专有问卷收集子域名。 |
+| `o33249.ingest.sentry.io` | 精准崩溃上报 | OpenAI 组织在 Sentry 的专属数据上报主机，**精准定位单个主机，坚决不通配全局 `sentry.io`**。 |
+| `openai-api.arkoselabs.com`, `client-api.arkoselabs.com` | 人机验证 (Captcha) | OpenAI 登录注册与防刷安全验证所使用的专属子域名（拒绝使用泛 `arkoselabs.com`）。 |
+| 23 个 `/32` IP (`4.151.200.38/32` 等) | 官方 Voice 出口 IP | **官方公布**：直接提取自官方权威地址 `https://openai.com/chatgpt-voice.json`。 |
+
+#### 🧠 Anthropic (Claude) 规则来源
+
+| 条目 / 规则 | 归属分类 | 详细来源与技术依据 |
+| :--- | :--- | :--- |
+| `anthropic.com`, `claude.ai` | 核心产品资产 | Anthropic 官方公司主页、API 基础接口端点及 Claude Web 交互主域名。 |
+| `claude.com`, `clau.de` | 官方域名与短链 | Anthropic 官方品牌顶级域名以及官方发布的推文短链接跳转域（上游 v2fly 交叉验证）。 |
+| `claude.dev` | 开发者中心 | Anthropic 面向 API 开发者与模型生态建设的官方门户域名。 |
+| `claudeusercontent.com` | 渲染与用户内容 | **关键依赖**：Claude 用于展示代码预览、HTML/SVG 交互沙箱 (Artifacts) 及多模态素材的核心资产域。 |
+| `claudemcpclient.com`, `claudemcpcontent.com` | 协议专有端点 | Claude Model Context Protocol (MCP) 模型上下文协议体系专用的客户端与上下文交换域名。 |
+| `servd-anthropic-website.b-cdn.net`, `anthropic.imgix.net` | 静态素材 CDN | 官方官方文档站点与前端静态图片加速端点（BunnyCDN 与 Imgix）。 |
+| `IP-CIDR,160.79.104.0/21,no-resolve` | 官方公布 IP 网段 | **官方公布**：直接来源于 Anthropic 开发者文档 [IP Addresses](https://docs.anthropic.com/en/api/ip-addresses)，涵盖全部出入站 API CIDR。 |
+
+#### 🚀 Antigravity (Google / Gemini) 规则来源
+
+| 条目 / 规则 | 归属分类 | 详细来源与技术依据 |
+| :--- | :--- | :--- |
+| `daily-cloudcode-pa.googleapis.com`, `cloudcode-pa.googleapis.com` | IDE 核心调度后端 | Antigravity 官方编辑器本地后台语言服务 (`language_server`) 启动参数中强制指定的云端 PA 通信后端。 |
+| `antigravity-pa.googleapis.com`, `antigravity.googleapis.com`, `antigravity.google.com` | 产品专属服务 | Google 内部为 Antigravity AI 原生编辑器独立配置的服务总线与 API 映射端点。 |
+| `antigravity-unleash.goog` | 功能灰度与分流 | Antigravity 编辑器内置功能灰度发布（基于 Unleash 系统）专用的 Google `.goog` 顶级域名。 |
+| `cloudaicompanion.googleapis.com`, `geller-pa.googleapis.com`, `robinfrontend-pa.googleapis.com` | AI Companion 辅助 | Google Cloud Code / Gemini Code Assist 代码理解与补全的核心后台服务（上游 v2fly 交叉确认）。 |
+| `generativelanguage.googleapis.com`, `generativeai.google` | Gemini 推理 API | Google Gemini 与 PaLM 系列大语言模型官方对外 Generative Language API 的核心通信接口。 |
+| `alkalicore-pa.clients6.google.com`, `geminiweb-pa.clients6.google.com`, `webchannel-alkalimakersuite-pa.clients6.google.com` | Web 通道与长连接 | Gemini 网页工作台与 MakerSuite 建立双向长连接 (WebChannel / gRPC over HTTP) 的必要端点。 |
+| `aistudio.google.com`, `makersuite.google.com`, `ai.google.dev`, `ai.studio` | 官方开发者平台 | Google AI Studio（原 MakerSuite）官方控制台与 Google AI 开发者门户入口。 |
+| `notebooklm.google.com` | 知识与研究助手 | Google DeepMind 驱动的 AI 交互式笔记本应用 NotebookLM 官方主域名。 |
+| `gemini.google`, `gemini.google.com`, `gemini.gstatic.com` | 产品与静态资源 | Gemini 官方品牌域名、对话主页及专属静态资源加速域名（严格隔离于通用 `gstatic.com`）。 |
+| `deepmind.google`, `deepmind.com` | 机构核心主页 | Google DeepMind 官方研究主页及模型发布门户。 |
+| `oauth2.googleapis.com` | 身份认证与凭据 | Antigravity Agent 模式下进行 Google 账号 Token 刷新与鉴权交换的必要端点。 |
+
+---
+
+### 3. 被剔除规则的溯源与证伪证据
+
+为保持规则集极致纯净，本项目对传统规则集中的常见错误条目进行了严格审计并予以剔除：
+
+1. **`ai.com`（已剔除）**：
+   - *历史背景*：曾被 OpenAI 短暂租用并跳转到 ChatGPT。
+   - *实测现状*：经 `curl -sIL https://ai.com` 测探，目前已跳转至 `https://ai.com/start`，由一家独立的第三方 AI Agent 公司运营，**已完全脱离 OpenAI 体系**，上游主流列表均已废弃。
+2. **`IP-ASN,20473`（已剔除）**：
+   - *历史背景*：blackmatrix7 等规则集中收录。
+   - *实测现状*：WHOIS 反查结果为 `The Constant Company LLC`（即主机商 **Vultr** 的全机房 ASN）。若收录会导致访问 Vultr 全球所有 VPS 的流量均被劫持进 AI 节点，属于严重收录失误。
+3. **`24.199.123.28/32`, `64.23.132.171/32`（已剔除）**：
+   - *实测现状*：WHOIS 查证为 DigitalOcean 机房的个人反代主机，非 OpenAI 官方资产。
+4. **`stripe.com`, `auth0.com`, `challenges.cloudflare.com`, `sentry.io`（已剔除）**：
+   - *实测现状*：均为全球通用的公共基础设施，通配收录会引发全局非 AI 业务的误伤与支付风控。OpenAI 所需的专用部分已通过特定主机（如 `o33249.ingest.sentry.io`、`openai-api.arkoselabs.com`）精准替代。
+5. **所有关键词规则 (`DOMAIN-KEYWORD`)（已剔除）**：
+   - *实测现状*：关键词会粗暴匹配任意包含子串的无关网站（如包含 `openai` 或 `claude` 的个人博客与讨论帖），违背精准分流原则。上游权威列表（v2fly、MetaCubeX）均不采用关键词匹配。
+
+---
+
 ## 💡 Antigravity 常见报错与排查建议
 
 当 Antigravity 在 Agent 执行模式下报错：
