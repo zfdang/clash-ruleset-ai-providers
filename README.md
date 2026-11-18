@@ -13,7 +13,7 @@
 
 - **以真实 IP 是否可见为准**：判断标准不是「域名是否 AI 厂商专有」，而是「该连接是否会让 AI Provider 侧看到真实 IP」。凡 Provider 能观察到的连接（含 API、Web、Dev/MCP、遥测与崩溃上报）一律收录走代理，确保 Provider 侧只看到代理 IP。第三方 AI Provider（Bedrock / Vertex AI / Foundry 等，不向 Anthropic 回传用户信息）与通用第三方源（`registry.npmjs.org` / `formulae.brew.sh` / `googlesource.com` 等）不在本规则集范围内。
 - **隔离 Google 流量**：Antigravity 仅匹配其专有 PA 后端与 Gemini 接口，绝不使用 `google.com` / `googleapis.com` 泛后缀，不影响日常 Google 服务。
-- **规则纯粹精准**：不依赖易误判的关键词 (`DOMAIN-KEYWORD`)，全面采用精准主机 (`DOMAIN`)、后缀 (`DOMAIN-SUFFIX`) 与厂商官方公布的 CIDR。
+- **规则纯粹精准**：全面采用精准主机 (`DOMAIN`)、后缀 (`DOMAIN-SUFFIX`) 与厂商官方公布的 CIDR。仅在厂商专有、不可能误伤的前缀场景下才用关键词（`DOMAIN-KEYWORD`，如 ChatGPT Web 专属的 `chatgpt-async-webps-prod` WebPubSub 租户）。
 
 ---
 
@@ -21,10 +21,10 @@
 
 | 规则集名称 | 适用范围 | 条目数 | GitHub 官方直连订阅链接 |
 | :--- | :--- | :---: | :--- |
-| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 106 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
-| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit 租户、专用 CDN、官方 Voice 出口 IP | 50 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml` |
+| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 121 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
+| **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit/WebPubSub 租户、专用 CDN、官方 Voice 出口 IP | 55 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml` |
 | **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 41 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml` |
-| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、Claude Code 遥测上报、官方 IPv4/IPv6 网段 | 15 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
+| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、Claude Code 遥测上报、官方 IPv4/IPv6 网段 | 25 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
 
 > 仓库根目录与 `rules/` 子目录下的文件完全一致，您可以按喜好引用。
 
@@ -179,12 +179,13 @@ rules:
 | `chat.com` | 核心产品资产 | OpenAI 于 2024 年底斥巨资收购并直接 301 重定向至 ChatGPT 首页的顶级官方域名。 |
 | `sora.com` | 核心产品资产 | OpenAI 旗下文生视频模型 Sora 的官方独立 Web 产品主域名。 |
 | `oaistatsig.com` | 特征开关与灰度 | OpenAI 官方搭建的专属 Statsig 代理网关，**取代有误伤风险的通用 `statsig.com`**。 |
-| `crixet.com`, `chatgpt.site` | 重定向与关联资产 | OpenAI 官方备案持有的相关产品辅助域名（经 v2fly / MetaCubeX 确认收录）。 |
-| `chatgpt.livekit.cloud` | 实时语音通话 | ChatGPT 官方高级语音模式 (Advanced Voice Mode) 专用的 LiveKit WebRTC 租户端点。 |
+| `crixet.com`, `chatgpt.site`, `openai.org` | 重定向与关联资产 | OpenAI 官方备案持有的相关产品辅助域名（经 v2fly / MetaCubeX 确认收录）。 |
+| `chatgpt.livekit.cloud`, `host.livekit.cloud`, `turn.livekit.cloud` | 实时语音通话 | ChatGPT 高级语音模式 (Advanced Voice Mode) 的 LiveKit WebRTC 租户与 TURN/SFU 中继端点（上游 v2fly/openai 收录）。 |
+| `DOMAIN-KEYWORD,chatgpt-async-webps-prod` | ChatGPT Web 异步推送 | ChatGPT Web 异步 WebSocket 的 Azure WebPubSub 专有租户前缀（上游 v2fly/openai 以 regexp 收录）；前缀为厂商专有、不可能误伤，故用 KEYWORD 匹配其动态子域。 |
 | `cdn.openaimerge.com`, `openaiassets.blob.core.windows.net`, `openaicom-*.azurefd.net` | 专用 CDN 与存储 | 包含 OpenAI 专属租户标识的 Microsoft Azure Front Door 及 Azure Blob 存储节点。 |
 | `chat.openai.com.cdn.cloudflare.net`, `openai.com.cdn.cloudflare.net` | Cloudflare CDN 回源 | OpenAI 在 Cloudflare 上部署的专属 CNAME 回源节点（v2fly 与 MetaCubeX 标配）。 |
 | `openai.qualtrics.com` | 用户调查与反馈 | OpenAI 在 Qualtrics 平台开设的专有问卷收集子域名。 |
-| `o33249.ingest.sentry.io`, `o207216.ingest.sentry.io` | 精准崩溃上报 | OpenAI 组织在 Sentry 官方备案的专属项目接入点（**官方文档 Article 9247338 明确指定**）。 |
+| `o33249.ingest.sentry.io`, `o33249.ingest.us.sentry.io`, `o207216.ingest.sentry.io` | 精准崩溃上报 | OpenAI 组织在 Sentry 官方备案的专属项目接入点（**官方文档 Article 9247338 明确指定**；US 区域端点经 v2fly/openai 交叉补充）。 |
 | `browser-intake-datadoghq.com`, `rum.browser-intake-datadoghq.com` | 性能与监控 | Datadog 针对 OpenAI 前端 RUM 监控的接收节点（**官方文档 Article 9247338 明确指定**）。 |
 | `openai-api.arkoselabs.com`, `client-api.arkoselabs.com` | 人机验证 (Captcha) | OpenAI 登录注册与防刷安全验证所使用的专属子域名（拒绝使用泛 `arkoselabs.com`）。 |
 | 23 个 `/32` IP (`4.151.200.38/32` 等) | 官方 Voice 出口 IP | **官方公布**：直接提取自官方权威地址 `https://openai.com/chatgpt-voice.json`。 |
@@ -194,7 +195,8 @@ rules:
 | 条目 / 规则 | 归属分类 | 详细来源与技术依据 |
 | :--- | :--- | :--- |
 | `anthropic.com`, `claude.ai` | 核心产品资产 | Anthropic 官方公司主页、API 基础接口端点及 Claude Web 交互主域名。 |
-| `claude.com`, `clau.de` | 官方域名与短链 | Anthropic 官方品牌顶级域名以及官方发布的推文短链接跳转域（上游 v2fly 交叉验证）。 |
+| `claude.com`, `clau.de`, `claude.app`, `claude.new`, `claude.site` | 官方域名与短链 | Anthropic 官方品牌顶级域名以及官方发布的短链接跳转域（上游 v2fly/anthropic 交叉验证）。 |
+| `anthropic.team`, `ant.dev`, `antspace.dev`, `chatbotclaude.com`, `claudeacademy.com`, `claudestudio.com`, `claudepages.dev` | 官方品牌与生态资产 | Anthropic / Claude 官方持有或运营的品牌、团队与生态域名（上游 v2fly/anthropic 收录）。Provider 侧可见，纳入以确保只暴露代理 IP。 |
 | `claude.dev` | 开发者中心 | Anthropic 面向 API 开发者与模型生态建设的官方门户域名。 |
 | `claudeusercontent.com` | 渲染与用户内容 | **关键依赖**：Claude 用于展示代码预览、HTML/SVG 交互沙箱 (Artifacts) 及多模态素材的核心资产域。 |
 | `claudemcpclient.com`, `claudemcpcontent.com` | 协议专有端点 | Claude Model Context Protocol (MCP) 模型上下文协议体系专用的客户端与上下文交换域名。 |

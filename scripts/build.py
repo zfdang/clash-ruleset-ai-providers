@@ -31,8 +31,13 @@ RULES_DATA = {
             "DOMAIN-SUFFIX,oaistatsig.com",
             "DOMAIN-SUFFIX,crixet.com",
             "DOMAIN-SUFFIX,chatgpt.site",
-            # Voice / Realtime streaming (OpenAI specific tenant)
+            "DOMAIN-SUFFIX,openai.org",
+            # ChatGPT Web async WebSocket (OpenAI-specific WebPubSub tenant prefix)
+            "DOMAIN-KEYWORD,chatgpt-async-webps-prod",
+            # Voice / Realtime streaming (OpenAI specific tenant + LiveKit TURN/SFU relay)
             "DOMAIN-SUFFIX,chatgpt.livekit.cloud",
+            "DOMAIN,host.livekit.cloud",
+            "DOMAIN,turn.livekit.cloud",
             # OpenAI Specific CDN & Dedicated Endpoints
             "DOMAIN,cdn.openaimerge.com",
             "DOMAIN,chat.openai.com.cdn.cloudflare.net",
@@ -48,6 +53,7 @@ RULES_DATA = {
             "DOMAIN,rum.browser-intake-datadoghq.com",
             "DOMAIN,openai.qualtrics.com",
             "DOMAIN,o33249.ingest.sentry.io",
+            "DOMAIN,o33249.ingest.us.sentry.io",
             "DOMAIN,o207216.ingest.sentry.io",
             # Human Verification (Specific Arkose endpoints for OpenAI, avoid broad arkoselabs.com)
             "DOMAIN,openai-api.arkoselabs.com",
@@ -84,10 +90,20 @@ RULES_DATA = {
         "rules": [
             # Core domains & Web
             "DOMAIN-SUFFIX,anthropic.com",
+            "DOMAIN-SUFFIX,anthropic.team",
+            "DOMAIN-SUFFIX,ant.dev",
+            "DOMAIN-SUFFIX,antspace.dev",
             "DOMAIN-SUFFIX,claude.ai",
             "DOMAIN-SUFFIX,claude.com",
+            "DOMAIN-SUFFIX,claude.app",
+            "DOMAIN-SUFFIX,claude.new",
+            "DOMAIN-SUFFIX,claude.site",
             "DOMAIN-SUFFIX,clau.de",
             "DOMAIN-SUFFIX,claude.dev",
+            "DOMAIN-SUFFIX,claudeacademy.com",
+            "DOMAIN-SUFFIX,claudestudio.com",
+            "DOMAIN-SUFFIX,chatbotclaude.com",
+            "DOMAIN-SUFFIX,claudepages.dev",
             "DOMAIN-SUFFIX,claudeusercontent.com",
             "DOMAIN-SUFFIX,claudemcpclient.com",
             "DOMAIN-SUFFIX,claudemcpcontent.com",

@@ -1,19 +1,22 @@
 # NAME: OpenAI
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:59:01
+# UPDATED: 2026-11-18 14:23:38
 # DESCRIPTION: Rules for OpenAI (ChatGPT, API, Sora, Voice LiveKit/Egress IPs, CDN, ArkoseLabs)
-# DOMAIN: 17
-# DOMAIN-SUFFIX: 10
+# DOMAIN: 20
+# DOMAIN-SUFFIX: 11
+# DOMAIN-KEYWORD: 1
 # IP-CIDR: 23
-# TOTAL: 50
+# TOTAL: 55
 payload:
   - DOMAIN,browser-intake-datadoghq.com
   - DOMAIN,cdn.openaimerge.com
   - DOMAIN,chat.openai.com.cdn.cloudflare.net
   - DOMAIN,client-api.arkoselabs.com
+  - DOMAIN,host.livekit.cloud
   - DOMAIN,o207216.ingest.sentry.io
   - DOMAIN,o33249.ingest.sentry.io
+  - DOMAIN,o33249.ingest.us.sentry.io
   - DOMAIN,openai-api.arkoselabs.com
   - DOMAIN,openai.com.cdn.cloudflare.net
   - DOMAIN,openai.qualtrics.com
@@ -25,6 +28,7 @@ payload:
   - DOMAIN,production-openaicom-storage.azureedge.net
   - DOMAIN,rum.browser-intake-datadoghq.com
   - DOMAIN,static.cloudflareinsights.com
+  - DOMAIN,turn.livekit.cloud
   - DOMAIN-SUFFIX,chat.com
   - DOMAIN-SUFFIX,chatgpt.com
   - DOMAIN-SUFFIX,chatgpt.livekit.cloud
@@ -34,7 +38,9 @@ payload:
   - DOMAIN-SUFFIX,oaistatsig.com
   - DOMAIN-SUFFIX,oaiusercontent.com
   - DOMAIN-SUFFIX,openai.com
+  - DOMAIN-SUFFIX,openai.org
   - DOMAIN-SUFFIX,sora.com
+  - DOMAIN-KEYWORD,chatgpt-async-webps-prod
   - IP-CIDR,102.37.57.54/32,no-resolve
   - IP-CIDR,13.71.25.29/32,no-resolve
   - IP-CIDR,135.220.40.201/32,no-resolve

@@ -1,13 +1,14 @@
 # NAME: AIProviders
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-11-18 14:17:20
+# UPDATED: 2026-11-18 14:23:38
 # DESCRIPTION: Consolidated ruleset for OpenAI, Anthropic, and Antigravity (Gemini/Google AI)
-# DOMAIN: 51
-# DOMAIN-SUFFIX: 30
+# DOMAIN: 54
+# DOMAIN-SUFFIX: 41
+# DOMAIN-KEYWORD: 1
 # IP-CIDR: 24
 # IP-CIDR6: 1
-# TOTAL: 106
+# TOTAL: 121
 payload:
   - DOMAIN,ai.google.dev
   - DOMAIN,aicode.googleapis.com
@@ -34,6 +35,7 @@ payload:
   - DOMAIN,geminiweb-pa.clients.google.com
   - DOMAIN,geminiweb-pa.clients6.google.com
   - DOMAIN,generativelanguage.googleapis.com
+  - DOMAIN,host.livekit.cloud
   - DOMAIN,http-intake.logs.us5.datadoghq.com
   - DOMAIN,labstailwind.pa.googleapis.com
   - DOMAIN,makersuite.google.com
@@ -44,6 +46,7 @@ payload:
   - DOMAIN,o1158394.ingest.us.sentry.io
   - DOMAIN,o207216.ingest.sentry.io
   - DOMAIN,o33249.ingest.sentry.io
+  - DOMAIN,o33249.ingest.us.sentry.io
   - DOMAIN,oauth2.googleapis.com
   - DOMAIN,openai-api.arkoselabs.com
   - DOMAIN,openai.com.cdn.cloudflare.net
@@ -59,22 +62,33 @@ payload:
   - DOMAIN,rum.browser-intake-datadoghq.com
   - DOMAIN,servd-anthropic-website.b-cdn.net
   - DOMAIN,static.cloudflareinsights.com
+  - DOMAIN,turn.livekit.cloud
   - DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
   - DOMAIN-SUFFIX,ai.studio
+  - DOMAIN-SUFFIX,ant.dev
   - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,anthropic.team
   - DOMAIN-SUFFIX,antigravity-unleash.goog
   - DOMAIN-SUFFIX,antigravity.google
+  - DOMAIN-SUFFIX,antspace.dev
   - DOMAIN-SUFFIX,bard.google.com
   - DOMAIN-SUFFIX,chat.com
+  - DOMAIN-SUFFIX,chatbotclaude.com
   - DOMAIN-SUFFIX,chatgpt.com
   - DOMAIN-SUFFIX,chatgpt.livekit.cloud
   - DOMAIN-SUFFIX,chatgpt.site
   - DOMAIN-SUFFIX,clau.de
   - DOMAIN-SUFFIX,claude.ai
+  - DOMAIN-SUFFIX,claude.app
   - DOMAIN-SUFFIX,claude.com
   - DOMAIN-SUFFIX,claude.dev
+  - DOMAIN-SUFFIX,claude.new
+  - DOMAIN-SUFFIX,claude.site
+  - DOMAIN-SUFFIX,claudeacademy.com
   - DOMAIN-SUFFIX,claudemcpclient.com
   - DOMAIN-SUFFIX,claudemcpcontent.com
+  - DOMAIN-SUFFIX,claudepages.dev
+  - DOMAIN-SUFFIX,claudestudio.com
   - DOMAIN-SUFFIX,claudeusercontent.com
   - DOMAIN-SUFFIX,crixet.com
   - DOMAIN-SUFFIX,deepmind.com
@@ -89,7 +103,9 @@ payload:
   - DOMAIN-SUFFIX,oaistatsig.com
   - DOMAIN-SUFFIX,oaiusercontent.com
   - DOMAIN-SUFFIX,openai.com
+  - DOMAIN-SUFFIX,openai.org
   - DOMAIN-SUFFIX,sora.com
+  - DOMAIN-KEYWORD,chatgpt-async-webps-prod
   - IP-CIDR,102.37.57.54/32,no-resolve
   - IP-CIDR,13.71.25.29/32,no-resolve
   - IP-CIDR,135.220.40.201/32,no-resolve
