@@ -1,23 +1,36 @@
 # NAME: Anthropic
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:59:01
-# DESCRIPTION: Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Official IPs)
-# DOMAIN: 2
-# DOMAIN-SUFFIX: 8
+# UPDATED: 2026-11-18 14:23:38
+# DESCRIPTION: Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Claude Code Telemetry, Official IPs)
+# DOMAIN: 5
+# DOMAIN-SUFFIX: 18
 # IP-CIDR: 1
 # IP-CIDR6: 1
-# TOTAL: 12
+# TOTAL: 25
 payload:
   - DOMAIN,anthropic.imgix.net
+  - DOMAIN,browser-intake-us5-datadoghq.com
+  - DOMAIN,http-intake.logs.us5.datadoghq.com
+  - DOMAIN,o1158394.ingest.us.sentry.io
   - DOMAIN,servd-anthropic-website.b-cdn.net
+  - DOMAIN-SUFFIX,ant.dev
   - DOMAIN-SUFFIX,anthropic.com
+  - DOMAIN-SUFFIX,anthropic.team
+  - DOMAIN-SUFFIX,antspace.dev
+  - DOMAIN-SUFFIX,chatbotclaude.com
   - DOMAIN-SUFFIX,clau.de
   - DOMAIN-SUFFIX,claude.ai
+  - DOMAIN-SUFFIX,claude.app
   - DOMAIN-SUFFIX,claude.com
   - DOMAIN-SUFFIX,claude.dev
+  - DOMAIN-SUFFIX,claude.new
+  - DOMAIN-SUFFIX,claude.site
+  - DOMAIN-SUFFIX,claudeacademy.com
   - DOMAIN-SUFFIX,claudemcpclient.com
   - DOMAIN-SUFFIX,claudemcpcontent.com
+  - DOMAIN-SUFFIX,claudepages.dev
+  - DOMAIN-SUFFIX,claudestudio.com
   - DOMAIN-SUFFIX,claudeusercontent.com
   - IP-CIDR,160.79.104.0/21,no-resolve
   - IP-CIDR6,2607:6bc0::/48,no-resolve
