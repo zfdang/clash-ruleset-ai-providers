@@ -80,7 +80,7 @@ RULES_DATA = {
     },
     "Anthropic": {
         "filename": "anthropic.yaml",
-        "description": "Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Official IPs)",
+        "description": "Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Claude Code Telemetry, Official IPs)",
         "rules": [
             # Core domains & Web
             "DOMAIN-SUFFIX,anthropic.com",
@@ -94,6 +94,11 @@ RULES_DATA = {
             # CDN & Endpoints
             "DOMAIN,servd-anthropic-website.b-cdn.net",
             "DOMAIN,anthropic.imgix.net",
+            # Claude Code telemetry — Provider-side channels that see the real client IP.
+            # Proxy all of these so the AI Provider only ever observes proxy IPs.
+            "DOMAIN,http-intake.logs.us5.datadoghq.com",
+            "DOMAIN,browser-intake-us5-datadoghq.com",
+            "DOMAIN,o1158394.ingest.us.sentry.io",
             # Official IP Ranges (https://docs.anthropic.com/en/api/ip-addresses)
             "IP-CIDR,160.79.104.0/21,no-resolve",
             "IP-CIDR6,2607:6bc0::/48,no-resolve",

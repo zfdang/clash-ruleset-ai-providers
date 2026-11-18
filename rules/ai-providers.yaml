@@ -1,13 +1,13 @@
 # NAME: AIProviders
 # AUTHOR: zfdang
 # REPO: https://github.com/zfdang/clash-ruleset-ai-providers
-# UPDATED: 2026-10-15 09:59:01
+# UPDATED: 2026-11-18 14:17:20
 # DESCRIPTION: Consolidated ruleset for OpenAI, Anthropic, and Antigravity (Gemini/Google AI)
-# DOMAIN: 48
+# DOMAIN: 51
 # DOMAIN-SUFFIX: 30
 # IP-CIDR: 24
 # IP-CIDR6: 1
-# TOTAL: 103
+# TOTAL: 106
 payload:
   - DOMAIN,ai.google.dev
   - DOMAIN,aicode.googleapis.com
@@ -22,6 +22,7 @@ payload:
   - DOMAIN,antigravity.google.com
   - DOMAIN,antigravity.googleapis.com
   - DOMAIN,browser-intake-datadoghq.com
+  - DOMAIN,browser-intake-us5-datadoghq.com
   - DOMAIN,cdn.openaimerge.com
   - DOMAIN,chat.openai.com.cdn.cloudflare.net
   - DOMAIN,client-api.arkoselabs.com
@@ -33,12 +34,14 @@ payload:
   - DOMAIN,geminiweb-pa.clients.google.com
   - DOMAIN,geminiweb-pa.clients6.google.com
   - DOMAIN,generativelanguage.googleapis.com
+  - DOMAIN,http-intake.logs.us5.datadoghq.com
   - DOMAIN,labstailwind.pa.googleapis.com
   - DOMAIN,makersuite.google.com
   - DOMAIN,notebook.google.com
   - DOMAIN,notebooklm-pa.googleapis.com
   - DOMAIN,notebooklm.google.com
   - DOMAIN,notebooklm.googleapis.com
+  - DOMAIN,o1158394.ingest.us.sentry.io
   - DOMAIN,o207216.ingest.sentry.io
   - DOMAIN,o33249.ingest.sentry.io
   - DOMAIN,oauth2.googleapis.com
