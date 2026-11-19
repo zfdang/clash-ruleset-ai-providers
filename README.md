@@ -21,10 +21,10 @@
 
 | 规则集名称 | 适用范围 | 条目数 | GitHub 官方直连订阅链接 |
 | :--- | :--- | :---: | :--- |
-| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 121 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
+| **AIProviders** | **三合一全量合集**（含 OpenAI、Anthropic、Antigravity 全部域名与官方出口 IP） | 126 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/AIProviders.yaml` |
 | **OpenAI** | ChatGPT、Sora、OpenAI API、LiveKit/WebPubSub 租户、专用 CDN、官方 Voice 出口 IP | 55 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/OpenAI.yaml` |
 | **Antigravity** | Google Antigravity 编辑器、Gemini、Cloud Code PA、AI Studio、NotebookLM | 41 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Antigravity.yaml` |
-| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、Claude Code 遥测上报、官方 IPv4/IPv6 网段 | 25 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
+| **Anthropic** | Claude (Web/App)、Anthropic API、Dev/MCP 专用端点、Claude Code 遥测上报、官方 IPv4/IPv6 网段与 ASN | 30 | `https://raw.githubusercontent.com/zfdang/clash-ruleset-ai-providers/main/Anthropic.yaml` |
 
 > 仓库根目录与 `rules/` 子目录下的文件完全一致，您可以按喜好引用。
 
@@ -142,8 +142,9 @@ rules:
 ### 🧠 Anthropic
 - **核心站点与 Web**：`DOMAIN-SUFFIX,anthropic.com`, `DOMAIN-SUFFIX,claude.ai`, `DOMAIN-SUFFIX,claude.com`, `DOMAIN-SUFFIX,clau.de`, `DOMAIN-SUFFIX,claude.dev`, `DOMAIN-SUFFIX,claudeusercontent.com`
 - **开发者与 MCP 专用**：`DOMAIN-SUFFIX,claudemcpclient.com`, `DOMAIN-SUFFIX,claudemcpcontent.com`
-- **专用 CDN**：`DOMAIN,servd-anthropic-website.b-cdn.net`, `DOMAIN,anthropic.imgix.net`
-- **官方公布 IP 网段**：`IP-CIDR,160.79.104.0/21,no-resolve`（IPv4）、`IP-CIDR6,2607:6bc0::/48,no-resolve`（IPv6）（数据来源：[Anthropic Docs](https://docs.anthropic.com/en/api/ip-addresses)）
+- **专用 CDN / 认证**：`DOMAIN,servd-anthropic-website.b-cdn.net`, `DOMAIN,anthropic.com.cdn.cloudflare.net`, `DOMAIN,anthropic.imgix.net`, `DOMAIN,anthropic.auth0.com`
+- **Claude Code 遥测**：`DOMAIN,http-intake.logs.us5.datadoghq.com`, `DOMAIN,browser-intake-us5-datadoghq.com`, `DOMAIN,o1158394.ingest.us.sentry.io`
+- **官方公布 IP 网段与 ASN**：`IP-CIDR,160.79.104.0/21`, `IP-CIDR,153.61.208.0/20`, `IP-CIDR,153.61.224.0/22`（IPv4）、`IP-CIDR6,2607:6bc0::/48`（IPv6）、`IP-ASN,399358`（数据来源：[Anthropic Docs](https://platform.claude.com/docs/en/api/ip-addresses)）
 
 ### 🚀 Antigravity (Google)
 - **后端服务 (Cloud Code PA / 调度服务)**：`DOMAIN,antigravity-pa.googleapis.com`, `DOMAIN,antigravity.googleapis.com`, `DOMAIN,daily-cloudcode-pa.googleapis.com`, `DOMAIN,cloudcode-pa.googleapis.com`, `DOMAIN,cloudaicompanion.googleapis.com`, `DOMAIN,geller-pa.googleapis.com`, `DOMAIN,robinfrontend-pa.googleapis.com`, `DOMAIN,aisandbox-pa.googleapis.com`, `DOMAIN-SUFFIX,antigravity-unleash.goog`, `DOMAIN-SUFFIX,antigravity.google`
@@ -200,12 +201,16 @@ rules:
 | `claude.dev` | 开发者中心 | Anthropic 面向 API 开发者与模型生态建设的官方门户域名。 |
 | `claudeusercontent.com` | 渲染与用户内容 | **关键依赖**：Claude 用于展示代码预览、HTML/SVG 交互沙箱 (Artifacts) 及多模态素材的核心资产域。 |
 | `claudemcpclient.com`, `claudemcpcontent.com` | 协议专有端点 | Claude Model Context Protocol (MCP) 模型上下文协议体系专用的客户端与上下文交换域名。 |
-| `servd-anthropic-website.b-cdn.net`, `anthropic.imgix.net` | 静态素材 CDN | 官方官方文档站点与前端静态图片加速端点（BunnyCDN 与 Imgix）。 |
+| `servd-anthropic-website.b-cdn.net`, `anthropic.com.cdn.cloudflare.net`, `anthropic.imgix.net` | 静态素材 CDN | 官方站点与前端静态资源加速端点（BunnyCDN、Cloudflare CNAME 回源、Imgix）；其中 Cloudflare 专属 CNAME 与 OpenAI 的 `*.cdn.cloudflare.net` 同类，Provider 侧可见，必须走代理。 |
+| `anthropic.auth0.com` | OAuth 登录认证 | Anthropic 在 Auth0 上的专属登录租户（非泛 `auth0.com`）。登录时 Provider 侧可见客户端 IP，符合「可见即代理」原则（与 OpenAI 的 `openai-api.arkoselabs.com` 专属子域同类）。 |
 | `http-intake.logs.us5.datadoghq.com` | Claude Code 遥测 (运营指标) | Claude Code CLI 直连 Anthropic API 时上报的运营指标端点（**官方文档 [Network configuration](https://code.claude.com/docs/en/network-config) 明确列出**；上游 `v2fly/anthropic` 标注为 `@telemetry`）。Provider 侧可见，必须走代理，确保只看到代理 IP。 |
 | `browser-intake-us5-datadoghq.com` | Claude Code 遥测 (运营错误报告) | CLI 直连 Anthropic API 且服务端放量开启时上报的错误报告端点（**官方文档 Network configuration 明确列出**，可用 `DISABLE_ERROR_REPORTING` / `DISABLE_TELEMETRY` 关闭）。同属 Provider 侧可见通道，必须走代理。 |
 | `o1158394.ingest.us.sentry.io` | Claude Code 遥测 (崩溃/错误上报) | Claude Code 实际连接的 Sentry 上报端点（上游 `v2fly/anthropic` 标注为 `@telemetry`）。收录依据是「Claude Code 会连接它、Provider 侧可见」这一事实，因此必须走代理以确保 Provider 只看到代理 IP；不以其是否为厂商专有域名作为判断标准。 |
-| `IP-CIDR,160.79.104.0/21,no-resolve` | 官方 IPv4 网段 | **官方公布**：直接来源于 [Anthropic Docs: IP Addresses](https://docs.anthropic.com/en/api/ip-addresses)，覆盖所有出入站连接。 |
-| `IP-CIDR6,2607:6bc0::/48,no-resolve` | 官方 IPv6 网段 | **官方公布**：来源同上，为支持 IPv6 双栈网络的入站连接提供完整覆盖。 |
+| `IP-CIDR,160.79.104.0/21`, `IP-CIDR,153.61.208.0/20`, `IP-CIDR,153.61.224.0/22` | 官方 IPv4 网段 | **官方公布**：来源于 [Anthropic Docs: IP Addresses](https://platform.claude.com/docs/en/api/ip-addresses)。`160.79.104.0/21` 为出站段（同时覆盖入站 `/23`），`153.61.208.0/20` 为出站段、`153.61.224.0/22` 为入站段。 |
+| `IP-CIDR6,2607:6bc0::/48,no-resolve` | 官方 IPv6 网段 | **官方公布**：来源同上。官方明确为 `/48`；部分第三方规则站写作 `/32` 属 AS 聚合的过宽写法，本集以官方精确网段为准。 |
+| `IP-ASN,399358,no-resolve` | 官方 ASN 兜底 | Anthropic PBC 自有自治系统（多家权威数据库一致确认，含上述 IPv4/IPv6 网段）。作为域名/网段漏配时的最后一道路由兜底，确保 Provider 资产流量必走代理。 |
+
+> **关于第三方规则站建议的泛化兜底**（未采纳）：`DOMAIN-SUFFIX,sentry.io`、`DOMAIN-KEYWORD,datadog/sentry/sift`、`geosite:category-ntp`、KYC（`withpersona.com` / `frompersona.com` / `maps.googleapis.com`）、客服 widget（`intercom.io` / `intercomcdn.com` / `cdn.usefathom.com`）等均未收录。原因：它们要么是通用第三方平台（Provider 无法从中获取用户信息，纳入会误伤全局流量、违反「隔离无关流量」），要么缺乏 Anthropic 专属标识的精准佐证，与本规则集「精准匹配 + Provider 侧可见」的核心原则冲突。遥测仍以已验证的**精确租户端点**（两个 Datadog + 一个 Sentry）覆盖，不改用泛关键词。 |
 
 #### 🚀 Antigravity (Google / Gemini) 规则来源
 

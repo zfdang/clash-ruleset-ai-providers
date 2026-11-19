@@ -86,7 +86,7 @@ RULES_DATA = {
     },
     "Anthropic": {
         "filename": "anthropic.yaml",
-        "description": "Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Claude Code Telemetry, Official IPs)",
+        "description": "Rules for Anthropic & Claude (Web, API, Dev/MCP, CDN, Auth, Claude Code Telemetry, Official IPs/ASN)",
         "rules": [
             # Core domains & Web
             "DOMAIN-SUFFIX,anthropic.com",
@@ -109,15 +109,24 @@ RULES_DATA = {
             "DOMAIN-SUFFIX,claudemcpcontent.com",
             # CDN & Endpoints
             "DOMAIN,servd-anthropic-website.b-cdn.net",
+            "DOMAIN,anthropic.com.cdn.cloudflare.net",
             "DOMAIN,anthropic.imgix.net",
+            # Auth — OAuth login endpoint where the Provider observes the client IP
+            "DOMAIN,anthropic.auth0.com",
             # Claude Code telemetry — Provider-side channels that see the real client IP.
             # Proxy all of these so the AI Provider only ever observes proxy IPs.
             "DOMAIN,http-intake.logs.us5.datadoghq.com",
             "DOMAIN,browser-intake-us5-datadoghq.com",
             "DOMAIN,o1158394.ingest.us.sentry.io",
-            # Official IP Ranges (https://docs.anthropic.com/en/api/ip-addresses)
+            # Official IP ranges (https://platform.claude.com/docs/en/api/ip-addresses)
+            # Outbound 160.79.104.0/21 (also covers inbound /23), 153.61.208.0/20;
+            # inbound 153.61.224.0/22; IPv6 2607:6bc0::/48 (official, not over-broad /32)
             "IP-CIDR,160.79.104.0/21,no-resolve",
+            "IP-CIDR,153.61.208.0/20,no-resolve",
+            "IP-CIDR,153.61.224.0/22,no-resolve",
             "IP-CIDR6,2607:6bc0::/48,no-resolve",
+            # Official ASN (Anthropic PBC) — catch-all fallback for any announced route
+            "IP-ASN,399358,no-resolve",
         ],
     },
     "Antigravity": {
